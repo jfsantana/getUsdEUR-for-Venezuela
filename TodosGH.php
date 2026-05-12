@@ -71,6 +71,27 @@ function ejecutar_query($conn, $sql, $params = array())
 	return $stmt;
 }
 
+function iniciar_transaccion($conn)
+{
+	if (!sqlsrv_begin_transaction($conn)) {
+		throw new Exception(print_r(sqlsrv_errors(), true));
+	}
+}
+
+function confirmar_transaccion($conn)
+{
+	if (!sqlsrv_commit($conn)) {
+		throw new Exception(print_r(sqlsrv_errors(), true));
+	}
+}
+
+function revertir_transaccion($conn)
+{
+	if (!sqlsrv_rollback($conn)) {
+		throw new Exception(print_r(sqlsrv_errors(), true));
+	}
+}
+
 //llama a la conexion del ambiente de PRD
 
 $connINN = controladorINN_PRD3030(); //GH INN3030
@@ -135,7 +156,7 @@ foreach ($empresas as $empresa) {
 	}
 
 	try {
-		ejecutar_query($conn, 'BEGIN TRANSACTION');
+		iniciar_transaccion($conn);
 
 		// Reemplazo del consolidado del dia en IT_VALOR_USD_BCV.
 		ejecutar_query(
@@ -175,12 +196,12 @@ foreach ($empresas as $empresa) {
 			array($FechaHoy, $CodMonedaEur, $EUR_BCV)
 		);
 
-		ejecutar_query($conn, 'COMMIT TRANSACTION');
+		confirmar_transaccion($conn);
 
 		echo "<br> reemplazo OK dia $FechaHoy USD:$USD_BCV EUR:$EUR_BCV ---------> ";
 		echo " CULMINO CON EXITO</br></br>";
 	} catch (Exception $e) {
-		sqlsrv_query($conn, 'ROLLBACK TRANSACTION');
+		revertir_transaccion($conn);
 		echo "<br> ERROR EN $bandera: " . $e->getMessage() . " ---------> ";
 	}
 

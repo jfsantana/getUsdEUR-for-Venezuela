@@ -125,7 +125,6 @@ DESCRIPCION: Panel de control manual para ejecutar actualizacion de tasas USD/EU
 <body>
     <div class="container">
         <h1>🔄 Actualizador de Tasas - GH Divisa
-             <h3> Desarrollado por Jesus Santana </h3>
         </h1>
        
         
@@ -133,7 +132,7 @@ DESCRIPCION: Panel de control manual para ejecutar actualizacion de tasas USD/EU
             <p><strong>Descripción:</strong> Ejecuta la actualización de tasas USD/EUR oficiales del Banco Central de Venezuela.</p>
             <p><strong>Fuente:</strong> API oficial (ve.dolarapi.com)</p>
             <p><strong>Empresas afectadas:</strong> INN, SUITE, EVENTO, HYSYCA, HOTELERA, BUENAVENTURA, HOTELERAOLD</p>
-            <p><strong>Última ejecución programada:</strong> Según configuración del cron.bat</p>
+            <p><strong>Última ejecución programada:</strong> Según configuración del cron.bat en el servidor 10.0.0.211</p>
         </div>
 
         <div class="button-group">
@@ -174,8 +173,9 @@ DESCRIPCION: Panel de control manual para ejecutar actualizacion de tasas USD/EU
 
         <div class="timestamp">
             Última carga: <?php echo date('Y-m-d H:i:s'); ?>
+                  <br> Desarrollado por Jesus Santana 
         </div>
     </div>
-      <h3> Desarrollado por Jesus Santana </h3>
+
 </body>
 </html>
