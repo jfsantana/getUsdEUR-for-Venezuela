@@ -35,14 +35,7 @@ function get_oficial_rate_from_api($url, $monedaEsperada)
 			strtoupper($item['moneda']) === strtoupper($monedaEsperada)
 		) {
 			$promedio = (float)$item['promedio'];
-			$fecha = date('Y-m-d');
-
-			if (!empty($item['fechaActualizacion'])) {
-				$timestamp = strtotime($item['fechaActualizacion']);
-				if ($timestamp !== false) {
-					$fecha = date('Y-m-d', $timestamp);
-				}
-			}
+			$fecha = date('Y-m-d'); // Siempre usar la fecha actual
 
 			return array($promedio, $fecha);
 		}
